@@ -1,0 +1,140 @@
+Below is a `README.md` file tailored for the provided Bitcoin price prediction code. It includes an overview, prerequisites, usage instructions, file descriptions, and additional notes.
+
+---
+
+# Bitcoin Price Prediction with XGBoost and GARCH
+
+## Overview
+
+This project implements a Bitcoin (BTC) price prediction system using historical price data, sentiment analysis, technical indicators, and advanced machine learning techniques. It leverages the XGBoost regressor for price prediction and the GARCH model for volatility forecasting. The script performs the following tasks:
+
+1. **Data Collection**: Fetches Bitcoin price data from Yahoo Finance and merges it with sentiment data.
+2. **Feature Engineering**: Adds technical indicators (e.g., SMA, RSI, MACD) and custom features (e.g., lagged prices, volume-price interactions).
+3. **Model Training**: Trains two XGBoost models—one with sentiment and one without—using randomized hyperparameter tuning.
+4. **Evaluation**: Compares model performance with and without sentiment using various metrics (MSE, RMSE, MAE, MAPE, R²).
+5. **Prediction**: Predicts historical prices (last 180 days) and forecasts future prices (next 90 days) with volatility bands.
+6. **Visualization**: Generates plots for feature importance and combined historical/future price predictions.
+
+The project aims to assess the impact of sentiment on Bitcoin price predictions and provide a 90-day forecast with high/low ranges.
+
+---
+
+## Prerequisites
+
+### Software
+- Python 3.8+
+- pip (Python package manager)
+
+### Libraries
+Install the required Python libraries using the following command:
+```bash
+pip install pandas numpy yfinance sklearn xgboost ta scipy matplotlib arch
+```
+
+### Data
+- **Bitcoin Sentiment Data**: A CSV file named `bitcoin_sentiments_21_24.csv` with columns `Date` (in YYYY-MM-DD format) and `Accurate Sentiments` (sentiment scores between -1 and 1). This file is required for sentiment analysis.
+- **Internet Connection**: Required to fetch historical price data from Yahoo Finance.
+
+---
+
+## Usage
+
+1. **Prepare Sentiment Data**:
+   - Ensure `bitcoin_sentiments_21_24.csv` is in the same directory as the script.
+   - The sentiment data should cover at least 3 years up to a recent date (e.g., 2024-09-12).
+
+2. **Run the Script**:
+   - Save the code as `bitcoin_price_prediction.py`.
+   - Open a terminal in the script's directory and execute:
+     ```bash
+     python bitcoin_price_prediction.py
+     ```
+
+3. **Output**:
+   - The script will generate several files and print metrics/predictions to the console. See the "Output Files" section for details.
+
+---
+
+## Code Structure
+
+### Main Components
+- **Data Collection**: Fetches BTC-USD price data and merges it with sentiment data.
+- **Feature Engineering**: Adds technical indicators and custom features.
+- **Preprocessing**: Scales data and splits it into training/testing sets.
+- **Model Training**: Trains XGBoost models with and without sentiment.
+- **Evaluation**: Computes performance metrics and feature importance.
+- **Prediction**: Forecasts historical (180 days) and future (90 days) prices with GARCH volatility.
+
+### Key Models
+- **XGBoost**: Gradient boosting regressor for price prediction.
+- **GARCH**: Volatility modeling with Normal and Student-t distributions.
+
+---
+
+## Output Files
+
+1. **Data Files**:
+   - `bitcoin_historical.csv`: Historical BTC price data aligned with sentiment.
+   - `sentiment_comparison_metrics.csv`: Performance metrics for models with/without sentiment.
+   - `bitcoin_predictions_90d_with_sentiment.csv`: 90-day future predictions including sentiment.
+   - `bitcoin_predictions_90d_no_sentiment.csv`: 90-day future predictions excluding sentiment.
+
+2. **Visualization Files**:
+   - `XGBoost_Feature_Importance_No_Sentiment.png`: Bar chart of feature importance (no sentiment).
+   - `XGBoost_Feature_Importance_With_Sentiment.png`: Bar chart of feature importance (with sentiment).
+   - `combined_historical_and_future_prediction.png`: Plot of historical (actual + predicted) and future price predictions.
+
+---
+
+## Notes
+
+### Assumptions
+- Sentiment data is accurate and spans at least 3 years.
+- Historical price data is available from Yahoo Finance.
+- The last sentiment date is hardcoded as 2024-09-12 for historical predictions.
+
+### Limitations
+- **Sentiment Data**: The quality and granularity of sentiment data significantly affect results.
+- **Volatility**: GARCH assumes stationarity, which may not fully capture crypto market dynamics.
+- **Real-Time**: The script uses static data; real-time updates require additional integration.
+
+### Potential Improvements
+- Use more advanced sentiment analysis (e.g., from social media).
+- Incorporate additional features (e.g., on-chain metrics).
+- Optimize hyperparameters further with Bayesian methods.
+- Add error handling for missing data or API failures.
+
+---
+
+## Example Output
+
+### Console
+```
+Saved historical data (1041 days) to bitcoin_historical.csv
+Historical Student-t params: [mu, omega, alpha1, beta1, nu]
+Fitting 7 folds for each of 50 candidates, totalling 350 fits
+Model Without Sentiment:
+  Mean Squared Error (MSE): 123456.78
+  Root Mean Squared Error (RMSE): 351.36
+  Mean Absolute Error (MAE): 234.56
+  Mean Absolute Percentage Error (MAPE): 2.34%
+  R-squared: 95.67%
+Future Bitcoin Price Predictions (All 90 Days):
+Date         Close (With Sentiment)  High (With)          Low (With)           Close (No Sentiment)  Volume               Sentiment
+2024-09-13   $60000.00             $62000.00            $58000.00            $59500.00            1234567890           0.75
+...
+```
+
+### Plots
+- Feature importance charts show the relative contribution of each feature.
+- The combined prediction plot displays actual prices (last 180 days) and forecasted prices (next 90 days) with high/low ranges.
+
+---
+
+## License
+
+This project is for educational purposes and provided as-is. No warranty is implied.
+
+---
+
+Feel free to adjust the content based on your specific needs or preferences! Let me know if you'd like to refine any section further.
