@@ -110,11 +110,4 @@ This code is a comprehensive script for predicting Bitcoin (BTC) prices using hi
 5. Visualize and save results.
 
 ---
-
-### **Potential Improvements**
-- **Error Handling**: More robust checks for missing data or API failures.
-- **Sentiment Quality**: Validate sentiment data accuracy.
-- **Hyperparameters**: Expand the search space or use Bayesian optimization.
-- **Real-Time Data**: Integrate live data for continuous updates.
-
 This script is a powerful tool for cryptocurrency price forecasting, blending traditional finance techniques (GARCH) with machine learning and sentiment analysis.
