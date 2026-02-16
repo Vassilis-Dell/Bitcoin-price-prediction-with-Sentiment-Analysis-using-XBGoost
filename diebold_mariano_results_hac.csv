@@ -1,0 +1,4 @@
+Test,DM Statistic,P-value,Variance Method,Conclusion
+WITH vs WITHOUT Sentiment,-0.6921510697761853,0.48884246291185307,Newey-West HAC,NOT significantly different
+WITHOUT Sentiment vs Benchmark,-8.57813576026467,0.0,Newey-West HAC,SIGNIFICANTLY DIFFERENT
+WITH Sentiment vs Benchmark,-8.57798532471635,0.0,Newey-West HAC,SIGNIFICANTLY DIFFERENT
